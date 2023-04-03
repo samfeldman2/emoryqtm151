@@ -88,6 +88,14 @@ The quiz will use the Formula 1 dataset
 with column names and data types
 - You will need to use the SQL command ``` CREATE TABLE ```
 
+-- SQLBook: Code
+-- Active: 1679458689756@@127.0.0.1@5432@postgres
+CREATE TABLE drivers(
+    driver_id int,
+    driver_name varchar(30),
+    nationality varchar(15),
+    victories int
+);    
 -- SQLBook: Markup
 
 <font size = "5">
@@ -101,6 +109,12 @@ from ".csv" files using the command <br>
 - Display the dataset using ``` SELECT * FROM .... ```
 - See Lecture 18 for more details
 
+-- SQLBook: Code
+COPY us_congress_members
+FROM /Users/samfeldman/Documents/GitHub/emoryqtm151/Lecture 18/data/us_congress_members.csv
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
+
+SELECT * FROM drivers;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -108,6 +122,10 @@ from ".csv" files using the command <br>
 
 - Subset one of the above datasets using ``` WHERE ```
 - Then sort the datasets in ascending or descending order 
+-- SQLBook: Code
+SELECT * FROM drivers
+WHERE (nationality = 'German') 
+ORDER BY victories ASC;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -120,6 +138,14 @@ from ".csv" files using the command <br>
 
 
 HINT: See the end of lectures 17
+-- SQLBook: Code
+SELECT nationality,
+       SUM(victories) AS sum_victories,
+       AVG(victories) AS mean_victories,
+       MIN(victories) AS min_victories,
+       MAX(victories) AS max_victories
+FROM drivers
+GROUP BY nationality;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -129,6 +155,13 @@ HINT: See the end of lectures 17
 - Then sort using ``` ORDER BY ```
 
 HINT: See the end of lectures 17 and 18
+-- SQLBook: Code
+
+SELECT nationality,
+       SUM(victories) AS sum_victories
+FROM drivers
+GROUP BY nationality
+ORDER BY sum_victories ASC;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -136,3 +169,12 @@ HINT: See the end of lectures 17 and 18
 
 - Compute an aggregate statistict using ```GROUP BY```
 - Subset one of the above datasets using ``` HAVING ```
+-- SQLBook: Code
+SELECT nationality,
+       SUM(victories) AS sum_victories,
+       AVG(victories) AS mean_victories,
+       MIN(victories) AS min_victories,
+       MAX(victories) AS max_victories
+FROM drivers
+GROUP BY nationality
+HAVING SUM(victories) > 50;

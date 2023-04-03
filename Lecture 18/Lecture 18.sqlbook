@@ -1,20 +1,4 @@
 -- SQLBook: Markup
-# <span style="color:darkblue"> Lecture 18 - Import Tables in SQL </span>
-
-<font size = "5">
-
-In the previous class we ...
-
-- Connected to an SQL server
-- Introduced data manipulation basics
-
-In this class we will
-
-- Import data from ".csv" files
-- Review Entity Relationship Diagrams (ERD)
-- Merge tables
-
--- SQLBook: Markup
 # <span style="color:darkblue"> I. Create Headers for Empty Table </span>
 
 <font size = "5">
@@ -144,7 +128,9 @@ additional ".sqlbooks" in this folder
 -- You just have to change the FROM argument
 
 
-
+COPY us_congress_members
+FROM /Users/samfeldman/Documents/GitHub/emoryqtm151/Lecture 18/data/us_congress_members.csv
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
 
 
